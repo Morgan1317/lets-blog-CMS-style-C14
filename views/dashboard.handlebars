@@ -17,14 +17,14 @@
 {{#if blogs.length}}
 <section>
   <h2>Your Content</h2>
-  <ol>
+  <ul>
     {{#each blogs as |blog|}}
     <li>
       {{> blog-info blog}}
       <a href="/dashboard/edit/{{blog.id}}">Edit post</a>
     </li>
     {{/each}}
-  </ol>
+  </ul>
 </section>
 {{/if}}
 
