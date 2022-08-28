@@ -33,7 +33,7 @@ router.get('/', auth, (req, res) => {
     ]
   })
     .then(dbBlogData => {
-      const blogs = dbBlogData.map(post => post.get({ plain: true }));
+      const blogs = dbBlogData.map(blog => blog.get({ plain: true }));
       res.render('dashboard', { blogs, loggedIn: true });
     })
     .catch(err => {
