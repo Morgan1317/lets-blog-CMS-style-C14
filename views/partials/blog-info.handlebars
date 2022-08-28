@@ -1,0 +1,19 @@
+<section class="card">
+  <a href="/blogs/{{id}}">
+    <header>{{title}}</header>
+
+    <div class="card-body">
+      <div>
+        {{blog_content}}
+      </div>
+      <div>
+        <b>{{user.username}}</b>
+        |
+        {{format_date created_at}}
+        |
+        <a href="/blogs/{{id}}">{{comments.length}}
+          {{format_plural "comment" comments.length}}</a>
+      </div>
+    </div>
+  </a>
+</section>
