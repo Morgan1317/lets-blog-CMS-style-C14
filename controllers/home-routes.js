@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
 const auth = require('../utils/auth');
 const { Blog, User, Comment } = require('../models');
 
@@ -43,7 +42,7 @@ router.get('/', (req, res) => {
 });
 
 // get single post
-router.get('/blog/:id', auth, (req, res) => {
+router.get('/blogs/:id', auth, (req, res) => {
   Blog.findOne({
     where: {
       id: req.params.id
@@ -77,7 +76,7 @@ router.get('/blog/:id', auth, (req, res) => {
 
       const blog = dbBlogData.get({ plain: true });
 
-      res.render('single-blog', {
+      res.render('one-blog', {
         blog,
         loggedIn: req.session.loggedIn
       });

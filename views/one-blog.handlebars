@@ -5,7 +5,9 @@
   <div>
     <textarea name="comment-body"></textarea>
   </div>
-
+  {{#each comment}}
+  {{> comments }}
+  {{/each}}
   <div>
     <button type="submit">add comment</button>
 
@@ -13,8 +15,7 @@
 </form>
 {{/if}}
 
-{{> comments blog.comments}}
 
 {{#if loggedIn}}
-<script src="/javascript/comment.js"></script>
+<script src="/javascript/add-comment.js"></script>
 {{/if}}
