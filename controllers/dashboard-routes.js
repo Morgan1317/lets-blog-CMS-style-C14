@@ -1,52 +1,15 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const auth = require('../utils/auth');
 const { Blog, User, Comment } = require('../models');
+const auth = require('../utils/auth');
 
-// get all blog posts for homepage
-router.get('/', (req, res) => {
+// get all blogs for dashboard
+router.get('/', auth, (req, res) => {
+  console.log(req.session);
   console.log('======================');
   Blog.findAll({
-    attributes: [
-      'id',
-      'blog_content',
-      'title',
-      'created_at'
-    ],
-    include: [
-      {
-        model: Comment,
-        attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
-        include: {
-          model: User,
-          attributes: ['username']
-        }
-      },
-      {
-        model: User,
-        attributes: ['username']
-      }
-    ]
-  })
-    .then(dbBlogData => {
-      const blogs = dbBlogData.map(blog => blog.get({ plain: true }));
-
-      res.render('homepage', {
-        blogs,
-        loggedIn: req.session.loggedIn
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-// get single post
-router.get('/blog/:id', auth, (req, res) => {
-  Blog.findOne({
     where: {
-      id: req.params.id
+      user_id: req.session.user_id
     },
     attributes: [
       'id',
@@ -70,17 +33,8 @@ router.get('/blog/:id', auth, (req, res) => {
     ]
   })
     .then(dbBlogData => {
-      if (!dbBlogData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-
-      const blog = dbBlogData.get({ plain: true });
-
-      res.render('single-blog', {
-        blog,
-        loggedIn: req.session.loggedIn
-      });
+      const blogs = dbBlogData.map(post => post.get({ plain: true }));
+      res.render('dashboard', { blogs, loggedIn: true });
     })
     .catch(err => {
       console.log(err);
@@ -88,14 +42,44 @@ router.get('/blog/:id', auth, (req, res) => {
     });
 });
 
-router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('login');
+router.get('/edit/:id', auth, (req, res) => {
+  Blog.findByPk(req.params.id, {
+    attributes: [
+      'id',
+      'blog_content',
+      'title',
+      'created_at'
+    ],
+    include: [
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
+  })
+    .then(dbBlogData => {
+      if (dbBlogData) {
+        const blog = dbBlogData.get({ plain: true });
+        
+        res.render('edit-blog', {
+          blog,
+          loggedIn: true
+        });
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 });
-
 
 module.exports = router;
