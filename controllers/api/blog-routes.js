@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
-const { Post, User, Comment, Vote } = require('../../models');
+const { Blog, User, Comment } = require('../../models');
 const auth = require('../../utils/auth');
 
 // get all users
@@ -75,7 +75,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', auth, (req, res) => {
-  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
+
   Blog.create({
     title: req.body.title,
     blog_content: req.body.blog_content,

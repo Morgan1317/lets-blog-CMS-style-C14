@@ -4,7 +4,6 @@ const sequelize = require('../config/connection');
 // create our Blog model
 class Blog extends Model {}
 
-// create fields/columns for Blog post model
 Blog.init(
     {
       id: {
