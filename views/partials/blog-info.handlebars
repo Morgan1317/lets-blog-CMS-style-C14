@@ -1,12 +1,11 @@
 <section class="card">
   <a href="/blogs/{{id}}">
     <header>{{title}}</header>
-
-    <div class="card-body">
-      <div>
+    <div class="row">
+      <div class="col-12">
         {{blog_content}}
       </div>
-      <div>
+      <div class="col-12">
         <b>{{user.username}}</b>
         |
         {{format_date created_at}}
