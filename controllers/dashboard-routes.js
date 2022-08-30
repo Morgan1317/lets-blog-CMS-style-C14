@@ -42,7 +42,10 @@ router.get('/', auth, (req, res) => {
 });
 
 router.get('/edit/:id', auth, (req, res) => {
-  Blog.findByPk(req.params.id, {
+  Blog.findOne({
+    where: {
+      id: req.params.id
+    },
     attributes: [
       'id',
       'blog_content',
