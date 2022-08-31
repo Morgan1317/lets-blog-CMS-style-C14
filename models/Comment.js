@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Comment extends Model {}
-
+// define the columns, and paramaters we want for the model
 Comment.init(
   {
     id: {

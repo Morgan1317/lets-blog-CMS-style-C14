@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
 const auth = require('../../utils/auth');
-
+// get all comments via /api/comments
 router.get('/', (req, res) => {
   Comment.findAll()
     .then(dbCommentData => res.json(dbCommentData))
@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// post comments via /api/comments, insuring user is logged in via auth
 router.post('/', auth, (req, res) => {
   Comment.create({
     user_id: req.session.user_id,

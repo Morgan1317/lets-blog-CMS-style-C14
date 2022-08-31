@@ -2,9 +2,8 @@ const router = require('express').Router();
 const { Blog, User, Comment } = require('../../models');
 const auth = require('../../utils/auth');
 
-// get all users
+// get all blog post at /api/blogs
 router.get('/', (req, res) => {
-  console.log('======================');
   Blog.findAll({
     attributes: [
       'id',
@@ -33,7 +32,7 @@ router.get('/', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// get specific blog post via id using /api/blogs/:id
 router.get('/:id', (req, res) => {
   Blog.findOne({
     where: {
@@ -62,7 +61,7 @@ router.get('/:id', (req, res) => {
   })
     .then(dbBlogData => {
       if (!dbBlogData) {
-        res.status(404).json({ message: 'No post found with this id' });
+        res.status(404).json({ message: 'No blog found with this id' });
         return;
       }
       res.json(dbBlogData);
@@ -72,7 +71,7 @@ router.get('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// add a blog post via api/blogs - making sure user is logged in with auth
 router.post('/', auth, (req, res) => {
 
   Blog.create({
@@ -86,7 +85,7 @@ router.post('/', auth, (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// edit blog post via its id api/blogs/:id, again insuring user is signed in
 router.put('/:id', auth, (req, res) => {
   Blog.update(req.body,
     {
@@ -97,7 +96,7 @@ router.put('/:id', auth, (req, res) => {
   )
     .then(dbBlogData => {
       if (!dbBlogData) {
-        res.status(404).json({ message: 'No post found with this id' });
+        res.status(404).json({ message: 'No blog found with this id' });
         return;
       }
       res.json(dbBlogData);
@@ -107,7 +106,7 @@ router.put('/:id', auth, (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// allows user to delete blog posting via its id api/blogs/:id
 router.delete('/:id', auth, (req, res) => {
   console.log('id', req.params.id);
   Blog.destroy({
@@ -117,7 +116,7 @@ router.delete('/:id', auth, (req, res) => {
   })
     .then(dbBlogData => {
       if (!dbBlogData) {
-        res.status(404).json({ message: 'No post found with this id' });
+        res.status(404).json({ message: 'No blog found with this id' });
         return;
       }
       res.json(dbBlogData);

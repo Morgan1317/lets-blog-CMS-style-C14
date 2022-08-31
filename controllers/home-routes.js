@@ -4,7 +4,6 @@ const { Blog, User, Comment } = require('../models');
 
 // get all blog posts for homepage
 router.get('/', (req, res) => {
-  console.log('======================');
   Blog.findAll({
     attributes: [
       'id',
@@ -27,9 +26,10 @@ router.get('/', (req, res) => {
       }
     ]
   })
+    // map data to get content
     .then(dbBlogData => {
       const blogs = dbBlogData.map(blog => blog.get({ plain: true }));
-
+// render handlebar home page
       res.render('homepage', {
         blogs,
         loggedIn: req.session.loggedIn
@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// get single post
+// get single blog post
 router.get('/blogs/:id', auth, (req, res) => {
   Blog.findOne({
     where: {
@@ -70,12 +70,12 @@ router.get('/blogs/:id', auth, (req, res) => {
   })
     .then(dbBlogData => {
       if (!dbBlogData) {
-        res.status(404).json({ message: 'No post found with this id' });
+        res.status(404).json({ message: 'No blog found with this id' });
         return;
       }
 
       const blog = dbBlogData.get({ plain: true });
-
+// render page for single blog 
       res.render('one-blog', {
         blog,
         loggedIn: req.session.loggedIn
@@ -92,10 +92,10 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-
+// render handlebar login page
   res.render('login');
 });
-
+// render the handlebar signup page
 router.get('/signup', (req, res) => {
   res.render('signup');
 })
