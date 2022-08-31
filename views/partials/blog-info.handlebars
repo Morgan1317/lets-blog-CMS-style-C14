@@ -1,14 +1,14 @@
 <section class="card">
 
-  <header>{{title}}</header>
+  <header class="blog-header">{{title}}</header>
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 content">
       {{blog_content}}
     </div>
-    <div class="col-12">
-      <b>{{user.username}}</b>
+    <div class="col-12 content">
+      <b class="bottom">{{user.username}}</b>
       |
-      {{format_date created_at}}
+      <b class="bottom">{{format_date created_at}}</b>
       |
       <a href="/blogs/{{id}}">{{comments.length}}
         {{format_plural "comment" comments.length}}</a>
