@@ -30,6 +30,8 @@
   Check the package json file to learn more about the dependencies required to run this app on your local server. 
 
   When first loading the page to the app, the user will be taken to the homepage shown below. 
+  
+<img width="1730" alt="Screen Shot 2022-08-31 at 5 39 56 PM" src="https://user-images.githubusercontent.com/103079401/187800420-815b4fe4-68c8-4fb4-80a5-50552a99f5cb.png">
 
   To see the app in action, and create your own post, visit the site <a href="https://desolate-fortress-54377.herokuapp.com/" target="_blank" rel="noreferrer noopener">here</a>
 
