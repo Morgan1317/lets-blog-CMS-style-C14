@@ -1,7 +1,7 @@
 async function editFormHandler(event) {
     event.preventDefault();
   
-    const title = document.querySelector('#title').value.trim();
+    const title = document.querySelector('#blog-title').value.trim();
     const blog_content = document.querySelector('#blog-content').value.trim();
     const id = window.location.toString().split('/')[
       window.location.toString().split('/').length - 1

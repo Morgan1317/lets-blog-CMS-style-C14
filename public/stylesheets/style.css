@@ -116,9 +116,20 @@ header nav ul li a:hover #logout:hover{
     border-radius: 15px;
   }
 
-/* end header styling */
 
-/*Styling for main content begins */
+  #blog-content{
+    height: 200px;
+    width:75%;
+    font-size: 14pt;
+    margin-left: 0;
+    margin-top: 0;
+    overflow-y: scroll;
+  }
+  #blog-title{
+    width: 75%;
+  }
+
+
 
 
 /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */
