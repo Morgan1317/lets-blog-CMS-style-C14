@@ -99,6 +99,7 @@ header{
 }
 .blog-header{
     background-color: var(--tertiary-color);
+    color: var(--secondary-color);
 }
 
 header nav{
